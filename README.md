@@ -20,6 +20,6 @@ You can modify the code as you wish, but it is prohibited to upload the **defaul
 
   - /message [player online] [&cmessage] ▪ Send a private message to a player.
 
-- /reply [player online] [&cmessage] ▪ Reply a private message to a player.
+- /reply [player online] [&cmessage] ▪ Reply a player's message.
 
-  - /r [player online] [&cmessage] ▪ Reply a private message to a player.
+  - /r [player online] [&cmessage] ▪ Reply a player's message.
