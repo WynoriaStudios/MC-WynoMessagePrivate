@@ -23,3 +23,20 @@ You can modify the code as you wish, but it is prohibited to upload the **defaul
 - /reply [player online] [&cmessage] ▪ Reply a player's message.
 
   - /r [player online] [&cmessage] ▪ Reply a player's message.
+ 
+# WynoMessagePrivate - PERMISSIONS
+- /wmp ▪ wynomessageprivate.command.wynomessageprivate
+  - wynomessageprivate.command.*
+  - wynomessageprivate.*
+
+- /message ▪ wynomessageprivate.command.message
+  - wynomessageprivate.command.*
+  - wynomessageprivate.* 
+
+- /reply ▪ wynomessageprivate.command.reply
+  - wynomessageprivate.command.*
+  - wynomessageprivate.*
+ 
+- Notification Message Private: wynomessageprivate.notification.message
+  - wynomessageprivate.notification.*
+  - wynomessageprivate.*
