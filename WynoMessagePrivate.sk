@@ -148,17 +148,24 @@ command /reply [<text>]:
 					if {db-local_variable::wynomessageprivate::%uuid of player%::reply} is offline:	
 						if {@LANGUAGE} = "English":
 							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cis offline." to player
+					
 					else:
-						set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
+						if {db-local_variable::wynomessageprivate::%uuid of player%::reply} doesn't have permission "wynomessageprivate.notification.message" or "wynomessageprivate.notification.*" or "wynomessageprivate.*":
 						
-						set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 1%"
-						set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
+							if {@LANGUAGE} = "English":
+								send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cdoes not have permission to receive any private messages." to player
 
-						set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}%&f: &a%arg 1%"
-						set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
-						
-						send "%{_result::message_private::message_command::sending::sender::final}%" to player
-						send "%{_result::message_private::message_command::sending::player::final}%" to {db-local_variable::wynomessageprivate::%uuid of player%::reply}
+						else:
+							set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
+							
+							set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 1%"
+							set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
+
+							set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}%&f: &a%arg 1%"
+							set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
+							
+							send "%{_result::message_private::message_command::sending::sender::final}%" to player
+							send "%{_result::message_private::message_command::sending::player::final}%" to {db-local_variable::wynomessageprivate::%uuid of player%::reply}
 							
 		else:
 			if {@LANGUAGE} = "English":
