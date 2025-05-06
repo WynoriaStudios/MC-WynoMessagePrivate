@@ -138,14 +138,19 @@ command /reply [<text>]:
 				stop
 			
 			if arg 1 isn't set:	
+				
 				if {@LANGUAGE} = "English":
 					send "&8&l| &f/reply &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fReply a player's message." to player
+			
 			else:
 				if {db-local_variable::wynomessageprivate::%uuid of player%::reply} isn't set:	
+					
 					if {@LANGUAGE} = "English":
 						send "&8&l| &4&lERROR &7&l▪ &cYou have not received a private message from a player." to player
+				
 				else:
 					if {db-local_variable::wynomessageprivate::%uuid of player%::reply} is offline:	
+						
 						if {@LANGUAGE} = "English":
 							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cis offline." to player
 					
