@@ -16,13 +16,13 @@ You can modify the code as you wish, but it is prohibited to upload the **defaul
 
 - /wmp help ▪ View the list of command arguments.
 
-- /message [player online] [&cmessage] ▪ Send a private message to a player.
+- /message [player online] [message] ▪ Send a private message to a player.
 
-  - /msg [player online] [&cmessage] ▪ Send a private message to a player.
+  - /msg [player online] [message] ▪ Send a private message to a player.
 
-- /reply [player online] [&cmessage] ▪ Reply a player's message.
+- /reply [player online] [message] ▪ Reply a player's message.
 
-  - /r [player online] [&cmessage] ▪ Reply a player's message.
+  - /r [player online] [message] ▪ Reply a player's message.
  
 # WynoMessagePrivate - PERMISSIONS
 - /wmp ▪ wynomessageprivate.command.wynomessageprivate
