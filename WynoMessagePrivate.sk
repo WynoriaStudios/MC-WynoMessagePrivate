@@ -32,6 +32,13 @@ on script unload:
 command /wynomessageprivate [<text>]:
 	aliases: /wynomessageprivate:wynomessageprivate, /wynomessageprivate:wmp, /wmp
 	trigger:
+		if sender is a player:
+			if player doesn't have permission "wynomessageprivate.command.wynomessageprivate" or "wynomessageprivate.command.*" or "wynomessageprivate.*":
+
+				if {@LANGUAGE} = "English":
+					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+				stop
+
 		if arg 1 != "info" or "reload":
 			
 			if {@LANGUAGE} = "English":
@@ -66,36 +73,55 @@ command /message [<offline player>] [<text>]:
 	aliases: /msg, /wynomessageprivate:message, /wynomessageprivate:msg
 	trigger:
 		if sender is a player:
-			if arg 1 isn't set:	
+			if player doesn't have permission "wynomessageprivate.command.message" or "wynomessageprivate.command.*" or "wynomessageprivate.*":
+
 				if {@LANGUAGE} = "English":
-					send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+				stop
+			
+			if arg 1 isn't set:	
+				
+				if {@LANGUAGE} = "English":
+					send "&8&l| &f/message &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+			
 			else:	
 				if arg 1 is offline:	
+					
 					if {@LANGUAGE} = "English":
 						send "&8&l| &4&lERROR &7&l▪ &cThe player &6%arg 1% &cis offline." to player
+				
 				else:
-					if sender is arg 1:	
+					if arg 1 doesn't have permission "wynomessageprivate.notification.message" or "wynomessageprivate.notification.*" or "wynomessageprivate.*":
+						
 						if {@LANGUAGE} = "English":
-							send "&8&l| &4&lERROR &7&l▪ &cYou cannot send a private message to yourself." to player
+							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%arg 1% &cdoes not have permission to receive any private messages." to player
+
 					else:
-						if arg 2 isn't set:
+						if sender is arg 1:	
+							
 							if {@LANGUAGE} = "English":
-								send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+								send "&8&l| &4&lERROR &7&l▪ &cYou cannot send a private message to yourself." to player
+						
 						else:
+							if arg 2 isn't set:
+								
+								if {@LANGUAGE} = "English":
+									send "&8&l| &f/message &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+							
+							else:
+								set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
+								
+								set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 2%"
+								set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
 
-							set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
-							
-							set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 2%"
-							set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
-
-							set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%arg 1%&f: &a%arg 2%"
-							set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
-							
-							send "%{_result::message_private::message_command::sending::sender::final}%" to player
-							send "%{_result::message_private::message_command::sending::player::final}%" to arg 1
-							
-							set {db-local_variable::wynomessageprivate::%uuid of arg 1%::reply} to player
-							set {db-local_variable::wynomessageprivate::%uuid of player%::reply} to arg 1
+								set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%arg 1%&f: &a%arg 2%"
+								set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
+								
+								send "%{_result::message_private::message_command::sending::sender::final}%" to player
+								send "%{_result::message_private::message_command::sending::player::final}%" to arg 1
+								
+								set {db-local_variable::wynomessageprivate::%uuid of arg 1%::reply} to player
+								set {db-local_variable::wynomessageprivate::%uuid of player%::reply} to arg 1
 		else:
 			if {@LANGUAGE} = "English":
 				send "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
@@ -105,9 +131,15 @@ command /reply [<text>]:
 	aliases: /r, /wynomessageprivate:reply, /wynomessageprivate:r
 	trigger:
 		if sender is a player:
+			if player doesn't have permission "wynomessageprivate.command.reply" or "wynomessageprivate.command.*" or "wynomessageprivate.*":
+
+				if {@LANGUAGE} = "English":
+					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+				stop
+			
 			if arg 1 isn't set:	
 				if {@LANGUAGE} = "English":
-					send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+					send "&8&l| &f/reply &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fReply a player's message." to player
 			else:
 				if {db-local_variable::wynomessageprivate::%uuid of player%::reply} isn't set:	
 					if {@LANGUAGE} = "English":
