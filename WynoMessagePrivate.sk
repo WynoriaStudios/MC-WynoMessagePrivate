@@ -1,0 +1,133 @@
+# WynoMessagePrivate is a Script (with Skript Plugin) allows Minecraft players to send private messages to other players.
+# This script was developed entirely from A to Z by the Wynoria's Studios team.
+
+# You can modify the code as you wish, but it is prohibited to upload the default code. 
+# We will require immediate removal of your resource by the moderation of the upload platform.
+
+options:
+	# In this category named "options" allows you to modify the script options which allows for a little more advanced customization than without these options.
+	LANGUAGE: "English"
+		# This option allows you to configure the language of all possible automatically translatable messages. By default, the option will be in English.
+		# If you use a language other than those available, messages will not be sent to the user.
+		# List of all languages available in configuration:
+			# - "English"
+	PREFIX_MESSAGE_SENDING: "&7[&3Message Private&7]"
+		# This option allows you to modify the message prefix when the player in question sends a private message to a player.
+
+# |--------------------------------------------------------------------------------------------------|
+# |--------------------------------------------------------------------------------------------------|
+# |--------------------------------------------------------------------------------------------------|
+# |--------------------------------------------------------------------------------------------------|
+# |--------------------------------------------------------------------------------------------------|
+# |--------------------------------------------------------------------------------------------------|
+
+on script load:
+	if {@LANGUAGE} = "English":
+		send "&8&l| &dNOTIFICATION &7&l▪ &aThe loading of the &cWynoMessagePrivate.sk &ascript has been completed successfully." to console
+
+on script unload:
+	if {@LANGUAGE} = "English":
+		send "&8&l| &dNOTIFICATION &7&l▪ &aThe unloading of the &cWynoMessagePrivate.sk &ascript has been completed successfully." to console
+
+command /wynomessageprivate [<text>]:
+	aliases: /wynomessageprivate:wynomessageprivate, /wynomessageprivate:wmp, /wmp
+	trigger:
+		if arg 1 != "info" or "reload":
+			
+			if {@LANGUAGE} = "English":
+				send "" to sender
+				send "&8&l| &6List of all command arguments:" to sender
+				send "" to sender
+				send "&8&l| &f/wmp &binfo &7&l▪ &fView script information." to sender
+				send "&8&l| &f/wmp &breload &7&l▪ &fReload the script" to sender
+				send "&8&l| &f/wmp &bhelp &7&l▪ &fView the list of command arguments." to sender
+
+		else if arg 1 = "info":
+			
+			if {@LANGUAGE} = "English":
+				send "" to sender
+				send "&8&l| &6Information:" to sender
+				send "" to sender
+				send "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-1&7)" to sender
+				send "&8&l| &fAuthor: &bWynoria's Studios" to sender
+				send "&8&l| &fRequis Plugin: &3%skript version%" to sender
+				send "&8&l| &fServer Version: &3%minecraft version%" to sender
+
+		else if arg 1 = "reload":
+
+			reload script
+			if sender is a player:
+
+				if {@LANGUAGE} = "English":
+					send "&8&l| &dNOTIFICATION &7&l▪ &aYou have successfully reloaded the script &6%script%&a. &cPlease check the console for possible errors." to sender
+
+
+command /message [<offline player>] [<text>]:
+	aliases: /msg, /wynomessageprivate:message, /wynomessageprivate:msg
+	trigger:
+		if sender is a player:
+			if arg 1 isn't set:	
+				if {@LANGUAGE} = "English":
+					send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+			else:	
+				if arg 1 is offline:	
+					if {@LANGUAGE} = "English":
+						send "&8&l| &4&lERROR &7&l▪ &cThe player &6%arg 1% &cis offline." to player
+				else:
+					if sender is arg 1:	
+						if {@LANGUAGE} = "English":
+							send "&8&l| &4&lERROR &7&l▪ &cYou cannot send a private message to yourself." to player
+					else:
+						if arg 2 isn't set:
+							if {@LANGUAGE} = "English":
+								send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+						else:
+
+							set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
+							
+							set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 2%"
+							set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
+
+							set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%arg 1%&f: &a%arg 2%"
+							set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
+							
+							send "%{_result::message_private::message_command::sending::sender::final}%" to player
+							send "%{_result::message_private::message_command::sending::player::final}%" to arg 1
+							
+							set {db-local_variable::wynomessageprivate::%uuid of arg 1%::reply} to player
+							set {db-local_variable::wynomessageprivate::%uuid of player%::reply} to arg 1
+		else:
+			if {@LANGUAGE} = "English":
+				send "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
+
+
+command /reply [<text>]:
+	aliases: /r, /wynomessageprivate:reply, /wynomessageprivate:r
+	trigger:
+		if sender is a player:
+			if arg 1 isn't set:	
+				if {@LANGUAGE} = "English":
+					send "&8&l| &f/msg &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+			else:
+				if {db-local_variable::wynomessageprivate::%uuid of player%::reply} isn't set:	
+					if {@LANGUAGE} = "English":
+						send "&8&l| &4&lERROR &7&l▪ &cYou have not received a private message from a player." to player
+				else:
+					if {db-local_variable::wynomessageprivate::%uuid of player%::reply} is offline:	
+						if {@LANGUAGE} = "English":
+							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cis offline." to player
+					else:
+						set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
+						
+						set {_result::message_private::message_command::sending::player::02} to " &6%player%&f: &a%arg 1%"
+						set {_result::message_private::message_command::sending::player::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::player::02}%"
+
+						set {_result::message_private::message_command::sending::sender::02} to " &6%player% &8»» &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}%&f: &a%arg 1%"
+						set {_result::message_private::message_command::sending::sender::final} to "%{_result::message_private::message_command::sending::all::01}%%{_result::message_private::message_command::sending::sender::02}%"
+						
+						send "%{_result::message_private::message_command::sending::sender::final}%" to player
+						send "%{_result::message_private::message_command::sending::player::final}%" to {db-local_variable::wynomessageprivate::%uuid of player%::reply}
+							
+		else:
+			if {@LANGUAGE} = "English":
+				send "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
