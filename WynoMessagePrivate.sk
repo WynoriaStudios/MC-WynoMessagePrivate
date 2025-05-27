@@ -6,7 +6,7 @@
 
 options:
 	# In this category named "options" allows you to modify the script options which allows for a little more advanced customization than without these options.
-	LANGUAGE: "French"
+	LANGUAGE: "English"
 		# This option allows you to configure the language of all possible automatically translatable messages. By default, the option will be in English.
 		# If you use a language other than those available, messages will not be sent to the user.
 		# List of all languages available in configuration:
@@ -73,7 +73,7 @@ command /wynomessageprivate [<text>]:
 				send "" to sender
 				send "&8&l| &6Information:" to sender
 				send "" to sender
-				send "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-1&7)" to sender
+				send "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-2&7)" to sender
 				send "&8&l| &fAuthor: &bWynoria's Studios" to sender
 				send "&8&l| &fRequis Plugin: &3Skript-%skript version%" to sender
 				send "&8&l| &fServer Version: &3%minecraft version%" to sender
@@ -82,7 +82,7 @@ command /wynomessageprivate [<text>]:
 				send "" to sender
 				send "&8&l| &6Informations:" to sender
 				send "" to sender
-				send "&8&l| &fNom: &b%script% &7(&d1.0.0-SNAPSHOT-1&7)" to sender
+				send "&8&l| &fNom: &b%script% &7(&d1.0.0-SNAPSHOT-2&7)" to sender
 				send "&8&l| &fAuteur: &bWynoria's Studios" to sender
 				send "&8&l| &fPlugin requises: &3Skript-%skript version%" to sender
 				send "&8&l| &fVersion du serveur: &3%minecraft version%" to sender
