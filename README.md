@@ -20,9 +20,9 @@ You can modify the code as you wish, but it is prohibited to upload the **defaul
 
   - /msg [player online] [message] ▪ Send a private message to a player.
 
-- /reply [player online] [message] ▪ Reply a player's message.
+- /reply [message] ▪ Reply a player's message.
 
-  - /r [player online] [message] ▪ Reply a player's message.
+  - /r [message] ▪ Reply a player's message.
  
 # WynoMessagePrivate - PERMISSIONS
 - /wmp ▪ wynomessageprivate.command.wynomessageprivate
