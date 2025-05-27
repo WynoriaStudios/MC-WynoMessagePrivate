@@ -6,11 +6,12 @@
 
 options:
 	# In this category named "options" allows you to modify the script options which allows for a little more advanced customization than without these options.
-	LANGUAGE: "English"
+	LANGUAGE: "French"
 		# This option allows you to configure the language of all possible automatically translatable messages. By default, the option will be in English.
 		# If you use a language other than those available, messages will not be sent to the user.
 		# List of all languages available in configuration:
 			# - "English"
+			# - "French"
 	PREFIX_MESSAGE_SENDING: "&7[&3Message Private&7]"
 		# This option allows you to modify the message prefix when the player in question sends a private message to a player.
 
@@ -24,10 +25,16 @@ options:
 on script load:
 	if {@LANGUAGE} = "English":
 		send "&8&l| &dNOTIFICATION &7&l▪ &aThe loading of the &cWynoMessagePrivate.sk &ascript has been completed successfully." to console
+	
+	else if {@LANGUAGE} = "French":
+		send "&8&l| &dNOTIFICATION &7&l▪ &aLe chargement du &cWynoMessagePrivate.sk &ascript a été achevée avec succès." to console
 
 on script unload:
 	if {@LANGUAGE} = "English":
 		send "&8&l| &dNOTIFICATION &7&l▪ &aThe unloading of the &cWynoMessagePrivate.sk &ascript has been completed successfully." to console
+
+	else if {@LANGUAGE} = "French":
+		send "&8&l| &dNOTIFICATION &7&l▪ &aLe déchargement du &cWynoMessagePrivate.sk &ascript a été achevée avec succès." to console
 
 command /wynomessageprivate [<text>]:
 	aliases: /wynomessageprivate:wynomessageprivate, /wynomessageprivate:wmp, /wmp
@@ -37,6 +44,9 @@ command /wynomessageprivate [<text>]:
 
 				if {@LANGUAGE} = "English":
 					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &4&lERREUR &7&l▪ &cVous n'avez pas l'autorisation d'utiliser cette commande." to player
 				stop
 
 		if arg 1 != "info" or "reload":
@@ -46,8 +56,16 @@ command /wynomessageprivate [<text>]:
 				send "&8&l| &6List of all command arguments:" to sender
 				send "" to sender
 				send "&8&l| &f/wmp &binfo &7&l▪ &fView script information." to sender
-				send "&8&l| &f/wmp &breload &7&l▪ &fReload the script" to sender
+				send "&8&l| &f/wmp &breload &7&l▪ &fReload the script." to sender
 				send "&8&l| &f/wmp &bhelp &7&l▪ &fView the list of command arguments." to sender
+
+			else if {@LANGUAGE} = "French":
+				send "" to sender
+				send "&8&l| &6List de tous les arguments de la commandes:" to sender
+				send "" to sender
+				send "&8&l| &f/wmp &binfo &7&l▪ &fVisualiser les informations du script." to sender
+				send "&8&l| &f/wmp &breload &7&l▪ &fRecharger le script." to sender
+				send "&8&l| &f/wmp &bhelp &7&l▪ &fVisualiser la liste tous les arguments de la commandes." to sender
 
 		else if arg 1 = "info":
 			
@@ -57,8 +75,17 @@ command /wynomessageprivate [<text>]:
 				send "" to sender
 				send "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-1&7)" to sender
 				send "&8&l| &fAuthor: &bWynoria's Studios" to sender
-				send "&8&l| &fRequis Plugin: &3%skript version%" to sender
+				send "&8&l| &fRequis Plugin: &3Skript-%skript version%" to sender
 				send "&8&l| &fServer Version: &3%minecraft version%" to sender
+
+			else if {@LANGUAGE} = "French":
+				send "" to sender
+				send "&8&l| &6Informations:" to sender
+				send "" to sender
+				send "&8&l| &fNom: &b%script% &7(&d1.0.0-SNAPSHOT-1&7)" to sender
+				send "&8&l| &fAuteur: &bWynoria's Studios" to sender
+				send "&8&l| &fPlugin requises: &3Skript-%skript version%" to sender
+				send "&8&l| &fVersion du serveur: &3%minecraft version%" to sender
 
 		else if arg 1 = "reload":
 
@@ -67,6 +94,9 @@ command /wynomessageprivate [<text>]:
 
 				if {@LANGUAGE} = "English":
 					send "&8&l| &dNOTIFICATION &7&l▪ &aYou have successfully reloaded the script &6%script%&a. &cPlease check the console for possible errors." to sender
+
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &dNOTIFICATION &7&l▪ &aVous avez rechargé le script &6%script% &aavec succès. &cVeuillez vérifier la console pour d'éventuelles erreurs." to sender
 
 
 command /message [<offline player>] [<text>]:
@@ -77,18 +107,27 @@ command /message [<offline player>] [<text>]:
 
 				if {@LANGUAGE} = "English":
 					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+				
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &4&lERREUR &7&l▪ &cVous n'avez pas l'autorisation d'utiliser cette commande." to player
 				stop
 			
 			if arg 1 isn't set:	
 				
 				if {@LANGUAGE} = "English":
 					send "&8&l| &f/message &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
+
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &f/message &f[&cjoueur connecté&f] &f[&cmessage&f] &7&l▪ &fEnvoyer un message privé à un joueur." to player
 			
 			else:	
 				if arg 1 is offline:	
 					
 					if {@LANGUAGE} = "English":
 						send "&8&l| &4&lERROR &7&l▪ &cThe player &6%arg 1% &cis offline." to player
+
+					else if {@LANGUAGE} = "French":
+						send "&8&l| &4&lERREUR &7&l▪ &cLe joueur &6%arg 1% &cest hors-ligne." to player
 				
 				else:
 					if arg 1 doesn't have permission "wynomessageprivate.notification.message" or "wynomessageprivate.notification.*" or "wynomessageprivate.*":
@@ -96,11 +135,17 @@ command /message [<offline player>] [<text>]:
 						if {@LANGUAGE} = "English":
 							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%arg 1% &cdoes not have permission to receive any private messages." to player
 
+						else if {@LANGUAGE} = "French":
+							send "&8&l| &4&lERREUR &7&l▪ &cLe joueur &6%arg 1% &cn'est pas autorisé à recevoir des messages privés." to player
+
 					else:
 						if sender is arg 1:	
 							
 							if {@LANGUAGE} = "English":
 								send "&8&l| &4&lERROR &7&l▪ &cYou cannot send a private message to yourself." to player
+
+							else if {@LANGUAGE} = "French":
+								send "&8&l| &4&lERREUR &7&l▪ &cVous ne pouvez pas vous envoyer de message privé à vous-même." to player
 						
 						else:
 							if arg 2 isn't set:
@@ -108,6 +153,9 @@ command /message [<offline player>] [<text>]:
 								if {@LANGUAGE} = "English":
 									send "&8&l| &f/message &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fSend a private message to a player." to player
 							
+								else if {@LANGUAGE} = "French":
+									send "&8&l| &f/message &f[&cjoueur connecté&f] &f[&cmessage&f] &7&l▪ &fEnvoyer un message privé à un joueur." to player
+			
 							else:
 								set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
 								
@@ -126,6 +174,9 @@ command /message [<offline player>] [<text>]:
 			if {@LANGUAGE} = "English":
 				send "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
 
+			else if {@LANGUAGE} = "French":
+				send "&8&l| &4&lERREUR &7&l▪ &cCette commande ne peut être utilisée que dans le jeu."
+
 
 command /reply [<text>]:
 	aliases: /r, /wynomessageprivate:reply, /wynomessageprivate:r
@@ -135,30 +186,45 @@ command /reply [<text>]:
 
 				if {@LANGUAGE} = "English":
 					send "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command." to player
+				
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &4&lERREUR &7&l▪ &cVous n'avez pas l'autorisation d'utiliser cette commande." to player
 				stop
 			
 			if arg 1 isn't set:	
 				
 				if {@LANGUAGE} = "English":
-					send "&8&l| &f/reply &f[&cplayer online&f] &f[&cmessage&f] &7&l▪ &fReply a player's message." to player
+					send "&8&l| &f/reply &f[&cmessage&f] &7&l▪ &fReply a player's message." to player
+
+				else if {@LANGUAGE} = "French":
+					send "&8&l| &f/reply &f[&cmessage&f] &7&l▪ &fRépondre à un message d'un joueur." to player
 			
 			else:
 				if {db-local_variable::wynomessageprivate::%uuid of player%::reply} isn't set:	
 					
 					if {@LANGUAGE} = "English":
 						send "&8&l| &4&lERROR &7&l▪ &cYou have not received a private message from a player." to player
+
+					if {@LANGUAGE} = "French":
+						send "&8&l| &4&lERREUR &7&l▪ &cVous n'avez pas reçu de message privé d'un joueur." to player
 				
 				else:
 					if {db-local_variable::wynomessageprivate::%uuid of player%::reply} is offline:	
 						
 						if {@LANGUAGE} = "English":
 							send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cis offline." to player
+
+						else if {@LANGUAGE} = "French":
+							send "&8&l| &4&lERREUR &7&l▪ &cLe joueur &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cest hors-ligne." to player
 					
 					else:
 						if {db-local_variable::wynomessageprivate::%uuid of player%::reply} doesn't have permission "wynomessageprivate.notification.message" or "wynomessageprivate.notification.*" or "wynomessageprivate.*":
 						
 							if {@LANGUAGE} = "English":
 								send "&8&l| &4&lERROR &7&l▪ &cThe player &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cdoes not have permission to receive any private messages." to player
+
+							if {@LANGUAGE} = "French":
+								send "&8&l| &4&lERREUR &7&l▪ &cLe joueur &6%{db-local_variable::wynomessageprivate::%uuid of player%::reply}% &cn'est pas autorisé à recevoir des messages privés." to player
 
 						else:
 							set {_result::message_private::message_command::sending::all::01} to {@PREFIX_MESSAGE_SENDING}
@@ -175,3 +241,6 @@ command /reply [<text>]:
 		else:
 			if {@LANGUAGE} = "English":
 				send "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
+
+			else if {@LANGUAGE} = "French":
+				send "&8&l| &4&lERREUR &7&l▪ &cCette commande ne peut être utilisée que dans le jeu."
