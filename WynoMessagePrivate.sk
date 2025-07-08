@@ -5,11 +5,16 @@
 # We will require immediate removal of your resource by the moderation of the upload platform.
 
 options:
-	# In this section, you can find all the script messages. You can modify them for better use!
+	# In this section you can change the script settings.
+	MESSAGE_SENDING_SOUND-STATE: true
+	MESSAGE_SENDING_SOUND-ID: "entity.experience_orb.pickup"
+
+	# In this section you can edit the messages as you wish.
+	
 	SCRIPT_LOAD: "&8&l| &dNOTIFICATION &7&l▪ &aThe loading of the &cWynoMessagePrivate.sk &ascript has been completed successfully."
 	SCRIPT_UNLOAD: "&8&l| &dNOTIFICATION &7&l▪ &aThe unloading of the &cWynoMessagePrivate.sk &ascript has been completed successfully."
 
-	CONSOLE_EXECUTE_COMMAND: "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
+	NO_PLAYER_EXECUTE_COMMAND: "&8&l| &4&lERROR &7&l▪ &cThis command can only be used in-game."
 
 	PLAYER_NO_PERMISISON: "&8&l| &4&lERROR &7&l▪ &cYou do not have permission to use this command."
 
@@ -25,8 +30,10 @@ options:
 	WMP_CMD_INFO_MESSAGE_03: ""
 	WMP_CMD_INFO_MESSAGE_04: "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-3&7)"
 	WMP_CMD_INFO_MESSAGE_05: "&8&l| &fAuthor: &bWynoria's Studios"
-	WMP_CMD_INFO_MESSAGE_06: "&8&l| &fRequis Plugin: &3Skript-%skript version%"
-	WMP_CMD_INFO_MESSAGE_07: "&8&l| &fServer Version: &3%minecraft version%"
+	WMP_CMD_INFO_MESSAGE_06: "&8&l| &fGithub Website: &ahttps://github.com/WynoriaStudios/MC-WynoMessagePrivate"
+	WMP_CMD_INFO_MESSAGE_07: "&8&l| &fSpigot Website: &ahttps://www.spigotmc.org/resources/wynomessageprivate-1-21-4.124762/"
+	WMP_CMD_INFO_MESSAGE_08: "&8&l| &fRequis Plugin: &3Skript-%skript version%"
+	WMP_CMD_INFO_MESSAGE_09: "&8&l| &fServer Version: &3%minecraft version%"
 
 	WMP_CMD_RELOAD_MESSAGE: "&8&l| &dNOTIFICATION &7&l▪ &aYou have successfully reloaded the script &6%script%&a. &cPlease check the console for possible errors."
 
@@ -85,6 +92,8 @@ command /wynomessageprivate [<text>]:
 			send {@WMP_CMD_INFO_MESSAGE_05} to player
 			send {@WMP_CMD_INFO_MESSAGE_06} to player
 			send {@WMP_CMD_INFO_MESSAGE_07} to player
+			send {@WMP_CMD_INFO_MESSAGE_08} to player
+			send {@WMP_CMD_INFO_MESSAGE_09} to player
 		
 		else if arg 1 = "reload":
 			reload script
@@ -118,11 +127,15 @@ command /message [<offline player>] [<text>]:
 			else:
 				set {db-local_variable::wynomessageprivate::%uuid of arg 1%::reply} to player
 				set {db-local_variable::wynomessageprivate::%uuid of player%::reply} to arg 1
+				
 				send {@MSG_CMD_YOURSELF_SENDING} to player
 				send {@MSG_CMD_PLAYER_SENDING} to arg 1
+				
+				if {@MESSAGE_SENDING_SOUND-STATE} = true:
+					play sound {@MESSAGE_SENDING_SOUND-ID} with volume 0.5 to arg 1
 		
 		else:
-			send {@CONSOLE_EXECUTE_COMMAND}
+			send {@NO_PLAYER_EXECUTE_COMMAND}
 
 
 command /reply [<text>]:
@@ -148,6 +161,9 @@ command /reply [<text>]:
 			else:
 				send {@REPLY_CMD_YOURSELF_SENDING} to player
 				send {@REPLY_CMD_PLAYER_SENDING} to {db-local_variable::wynomessageprivate::%uuid of player%::reply}
+				
+				if {@MESSAGE_SENDING_SOUND-STATE} = true:
+					play sound {@MESSAGE_SENDING_SOUND-ID} with volume 0.5 to {db-local_variable::wynomessageprivate::%uuid of player%::reply}
 
 		else:
-			send {@CONSOLE_EXECUTE_COMMAND}
+			send {@NO_PLAYER_EXECUTE_COMMAND}
