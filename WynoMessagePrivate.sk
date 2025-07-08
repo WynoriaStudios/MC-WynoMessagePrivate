@@ -28,7 +28,7 @@ options:
 	WMP_CMD_INFO_MESSAGE_01: ""
 	WMP_CMD_INFO_MESSAGE_02: "&8&l| &6Information:"
 	WMP_CMD_INFO_MESSAGE_03: ""
-	WMP_CMD_INFO_MESSAGE_04: "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-3&7)"
+	WMP_CMD_INFO_MESSAGE_04: "&8&l| &fName: &b%script% &7(&d1.0.0-SNAPSHOT-4&7)"
 	WMP_CMD_INFO_MESSAGE_05: "&8&l| &fAuthor: &bWynoria's Studios"
 	WMP_CMD_INFO_MESSAGE_06: "&8&l| &fGithub Website: &ahttps://github.com/WynoriaStudios/MC-WynoMessagePrivate"
 	WMP_CMD_INFO_MESSAGE_07: "&8&l| &fSpigot Website: &ahttps://www.spigotmc.org/resources/wynomessageprivate-1-21-4.124762/"
